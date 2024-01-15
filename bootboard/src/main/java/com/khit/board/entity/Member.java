@@ -37,8 +37,19 @@ public class Member {
 		member.setMemberPassword(memberDTO.getMemberPassword());
 		member.setMemberName(memberDTO.getMemberName());
 		member.setMemberAge(memberDTO.getMemberAge());
+		
 		return member;
 	}
 	
-
+	//수정을 위한 
+	public static Member toUpdateEntity(MemberDTO memberDTO) {
+		Member member = new Member();
+		member.setId(memberDTO.getId());
+		member.setMemberEmail(memberDTO.getMemberEmail());
+		member.setMemberPassword(memberDTO.getMemberPassword());
+		member.setMemberName(memberDTO.getMemberName());
+		member.setMemberAge(memberDTO.getMemberAge());
+		
+		return member;
+	}
 }

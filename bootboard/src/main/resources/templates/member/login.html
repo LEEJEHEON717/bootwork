@@ -2,12 +2,12 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
 <meta charset="UTF-8">
-<title>회원가입...</title>
+<title>로그인...</title>
 <link rel="stylesheet" th:href="@{/css/style.css}">
 </head>
 <body>
 	<div id="container">
-		<h2>회원 가입</h2>
+		<h2>로그인</h2>
 		<form th:action="@{/member/join}" method="post" class="joinform">
 			<fieldset>
 				<ul>
@@ -20,21 +20,12 @@
 						<input type= "text" name="memberPassword" id="memberPassword">
 					</li>
 					<li>
-						<label for="memberName">이름</label>
-						<input type= "text" name="memberName" id="memberName">
+						<span th:text="${error}" class="error"></span>
 					</li>
 					<li>
-						<label for="memberAge">나이</label>
-						<input type= "text" name="memberAge" id="memberAge">
-					</li>
- 					<li>
-						<input type= "submit" value="가입">
+						<input type= "submit" value="로그인">
 						<input type= "reset" value="취소">
 					</li>
-<!-- 					<li>
-						<button type="submit">가입</button>
-						<button type="reset">취소</button>
-					</li> -->
 				</ul>
 			</fieldset>
 		</form>
