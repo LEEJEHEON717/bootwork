@@ -9,11 +9,13 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.khit.board.dto.MemberDTO;
 import com.khit.board.entity.Member;
 import com.khit.board.service.MemberService;
 
+import jakarta.persistence.metamodel.SetAttribute;
 import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
 
@@ -77,6 +79,7 @@ public class MemberController {
 		if(loginMember != null) {
 			//세션 발급(이메일)
 			session.setAttribute("sessionEmail", loginMember.getMemberEmail());
+			session.setAttribute("sessionName", loginMember.getMemberName());
 			return "main";  //main.html
 		}else {
 			String error = "아이디나 비밀번호를 확인해 주세요";
@@ -106,6 +109,14 @@ public class MemberController {
 	public String update(MemberDTO memberDTO) {
 		memberService.update(memberDTO);
 		return "redirect:/member/" + memberDTO.getId();
+	}
+	
+	//이메일 중복 검사
+	@PostMapping("/member/check-email")
+	public @ResponseBody String checkEmail(
+			@RequestParam("meberEmail") String memberEmail) {
+		String resultText = memberService.checkEmail(memberEmail);
+		return resultText;
 	}
 	
 }
