@@ -13,38 +13,48 @@
 					<tr>
 						<td>
 							<input type="text" name="boardTitle" 
-										th:value="${board.boardTitle}" readonly>
+									th:value="${board.boardTitle}" readonly>
 						</td>
 					</tr>
 					<tr>
 						<td>
 							<input type="text" name="boardWriter" 
-										th:value="${board.boardWriter}" readonly>
+									th:value="${board.boardWriter}" readonly>
 						</td>
 					</tr>
 					<tr>
 						<td>
 							<textarea rows="5" cols="50" name="boardContent"
-										th:text="${board.boardContent}" readonly></textarea>
+									th:text="${board.boardContent}" readonly></textarea>
 						</td>
 					</tr>
 					<tr>
-						<td th:text="${board.boardHits}">
+						<td>
 							<input type="text" name="boardHits"
-										th:value="${board.boardHits}" readonly>
+									th:value="'조회수: ' + ${board.boardHits}" readonly>
 						</td>
 					</tr>
 					<tr>
 						<td>
 							<input type="text" name="createdDate"
-										th:value="${board.createdDate}" readonly>
+										th:value="'작성일: ' + ${#temporals.format(board.createdDate,
+												'yyyy-MM-dd HH:mm')}" readonly>
 						</td>
 					</tr>
 					<tr>
 						<td>
-							<a th:href="@{/board/list}">
-								<input type="submit" value="목록">
-							</a>
+							<span th:if="${session.sessionName == board.boardWriter}">
+								<a th:href="@{|/board/update/${board.id}|}">
+									<input type="button" value="수정">
+								</a>
+								<a th:href="@{|/board/delete/${board.id}|}"
+									onclick="return confirm('해당 게시글을 삭제하시겠습니까?')">
+									<input type="button" value="삭제">
+								</a>
+							</span>
+								<a th:href="@{/board/list}">
+									<input type="button" value="목록">
+								</a>
 						</td>
 					</tr>
 				</tbody>

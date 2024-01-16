@@ -21,7 +21,7 @@
 				<tbody>
 					<tr th:each="board : ${boardList}">
 						<td th:text="${board.id}"></td>		
-						<td><a th:href="@{|/board/${boaard.id}|}" th:text="${board.boardTitle}"></a></td>	<!-- |(버티컬바) 문자로 안 바뀌고 숫자가 유지되게 -->
+						<td><a th:href="@{|/board/${board.id}|}" th:text="${board.boardTitle}"></a></td>	<!-- |(버티컬바) 문자로 안 바뀌고 숫자가 유지되게 -->
 						<td th:text="${board.boardWriter}"></td>		
 						<td th:text="${board.boardHits}"></td>		
 						<td th:text="${#temporals.format(board.createdDate,

@@ -11,6 +11,7 @@ import com.khit.board.entity.Board;
 import com.khit.board.exception.BootBoardException;
 import com.khit.board.repository.BoardRepository;
 
+import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 
 @RequiredArgsConstructor
@@ -20,8 +21,8 @@ public class BoardService {
 	private final BoardRepository boardRepository;
 
 	public void save(BoardDTO boardDTO) {
-		//dto -> entitiy로 변환
-		Board board = Board.toSaveEntitiy(boardDTO);
+		//dto -> entity로 변환
+		Board board = Board.toSaveEntity(boardDTO);
 		//entity를 db에 저장
 		boardRepository.save(board);
 	}
@@ -48,5 +49,22 @@ public class BoardService {
 		}else { //게시글이 없으면 에러 처리
 			throw new BootBoardException("게시글을 찾을 수 없습니다.");
 		}
+	}
+	
+	@Transactional	//컨트롤러러 작업(매서드)이 2개 이상이면 사용함
+	public void updateHits(Long id) {
+		//이 메서드를 boardRepository에 생성
+		boardRepository.updateHits(id);
+	}
+
+	public void deleteById(Long id) {
+		boardRepository.deleteById(id);
+	}
+
+	public void update(BoardDTO boardDTO) {
+		//save() - 삽입(id가 없고), 수정(id가 있음)
+		//dto -> entity
+		Board board = Board.toUpdateEntity(boardDTO);
+		boardRepository.save(board);
 	}
 }

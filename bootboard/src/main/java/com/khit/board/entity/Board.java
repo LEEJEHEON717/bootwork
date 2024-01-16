@@ -36,13 +36,24 @@ public class Board extends BaseEntity{ //테이블이 생성되는 역할을 하
 	@Column
 	private Integer boardHits;
 	
-	//dto를 entity롤 변환하는 정적 메서드
-	public static Board toSaveEntitiy(BoardDTO boardDTO) {
+	//dto를 entity로 변환하는 정적 메서드
+	public static Board toSaveEntity(BoardDTO boardDTO) {
 		Board board = Board.builder()
 				.boardTitle(boardDTO.getBoardTitle())
 				.boardWriter(boardDTO.getBoardWriter())
 				.boardContent(boardDTO.getBoardContent())
 				.boardHits(0)
+				.build();
+		return board;
+	}
+	
+	public static Board toUpdateEntity(BoardDTO boardDTO) {
+		Board board = Board.builder()
+				.id(boardDTO.getId())
+				.boardTitle(boardDTO.getBoardTitle())
+				.boardWriter(boardDTO.getBoardWriter())
+				.boardContent(boardDTO.getBoardContent())
+				.boardHits(boardDTO.getBoardHits())
 				.build();
 		return board;
 	}
