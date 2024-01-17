@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import com.khit.board.dto.BoardDTO;
@@ -28,8 +29,11 @@ public class BoardService {
 	}
 
 	public List<BoardDTO> findAll() {
-		// db에서 entity list를 가져옴
-		List<Board> boardList = boardRepository.findAll();
+		//db에서 entity list를 가져옴
+		//List<Board> boardList = boardRepository.findAll();
+		//내림차순 정렬 - Sort.by(정렬방식, 해당필드)
+		List<Board> boardList = 
+				boardRepository.findAll(Sort.by(Sort.Direction.DESC, "id"));
 		//게시글을 담을 빈 리스트 생성
 		List<BoardDTO> boardDTOList = new ArrayList<>();
 		
@@ -37,21 +41,21 @@ public class BoardService {
 			//entity -> dto로 변환
 			BoardDTO boardDTO = BoardDTO.toSaveDTO(board);
 			boardDTOList.add(boardDTO);
-		}	
+		}
 		return boardDTOList;
 	}
 
 	public BoardDTO findById(Long id) {
-		Optional<Board> findboard = boardRepository.findById(id);
-		if(findboard.isPresent()) { //검색한 게시글이 있으면 dto를 컨트롤러로 반환함
-			BoardDTO boardDTO = BoardDTO.toSaveDTO(findboard.get());
+		Optional<Board> findBoard = boardRepository.findById(id);
+		if(findBoard.isPresent()) { //검색한 게시글이 있으면 dto를 컨트롤러로 반환함
+			BoardDTO boardDTO = BoardDTO.toSaveDTO(findBoard.get());
 			return boardDTO;
 		}else { //게시글이 없으면 에러 처리
 			throw new BootBoardException("게시글을 찾을 수 없습니다.");
 		}
 	}
-	
-	@Transactional	//컨트롤러러 작업(매서드)이 2개 이상이면 사용함
+
+	@Transactional  //컨트롤러 작업(매서드)이 2개 이상이면 사용함
 	public void updateHits(Long id) {
 		//이 메서드를 boardRepository에 생성
 		boardRepository.updateHits(id);

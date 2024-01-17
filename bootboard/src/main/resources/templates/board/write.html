@@ -6,38 +6,45 @@
 <link rel="stylesheet" th:href="@{/css/style.css}">
 </head>
 <body>
-	<div id="container">
-		<h2>글쓰기</h2>
-		<form th:action="@{/board/write}" method="post">
-			<table class="tbl_list">
-				<tbody>
-					<tr>
-						<td>
-							<input type="text" name="boardTitle" 
-								placeholder="글 제목">
-						</td>
-					</tr>
-					<tr>
-						<td>
-							<input type="text" name="boardWriter" 
-								th:value="${session.sessionName}">
-						</td>
-					</tr>
-					<tr>
-						<td>
-							<textarea rows="5" cols="50" name="boardContent"
-								placeholder="글 내용"></textarea>
-						</td>
-					</tr>
-					<tr>
-						<td>
-							<input type="submit" value="등록"
-								placeholder="작성자">
-						</td>
-					</tr>
-				</tbody>
-			</table>
-		</form>
+    <div id="container">
+        <h2>글쓰기</h2>
+        <form th:action="@{/board/write}" method="post"
+        			th:object="${boardDTO}">
+        			<div th:if="${#fields.hasAnyErrors()}">
+        				<div th:each="err: ${#fields.allErrors()}" 
+        								th:text="${err}"></div>
+        			</div>
+        	<table class="tbl_list">
+        		<tbody>
+        		<!-- th:field="*{boardTitle}" name 속성 역할도 하고
+        					제목을 유지시키는 기능을 함 -->
+        		  <tr>
+        		  	<td>
+        		  		<input type="text" th:field="*{boardTitle}" placeholder="글 제목">
+        		  	</td>
+        		  </tr>
+        		  <tr>
+        		  	<td>
+        		  		<input type="text" name="boardWriter" readonly
+        		  			th:value="${session.sessionName}">
+        		  	</td>
+        		  </tr>
+        		  <tr>
+        		  	<td>
+        		  		<textarea rows="5" cols="50" th:field="*{boardContent}"
+        		  				placeholder="글 내용"></textarea>
+        		  	</td>
+        		  </tr>
+        		  <tr>
+        		  	<td>
+        		  		<input type="submit" value="등록">
+        		  		<input type="reset" value="취소">
+        		  	</td>
+        		  </tr>
+        		</tbody>
+        	</table>
+        
+        </form>
 	</div>
 </body>
 </html>

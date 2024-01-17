@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -13,8 +14,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import com.khit.board.dto.BoardDTO;
 import com.khit.board.service.BoardService;
 
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 
+@Slf4j
 @RequestMapping("/board")
 @RequiredArgsConstructor
 @Controller
@@ -24,23 +28,29 @@ public class BoardController {
 	
 	//글쓰기 페이지
 	@GetMapping("/write")
-	public String writeForm() {
-		return "/board/write"; //write.html
+	public String writeForm(BoardDTO boardDTO) {
+		return "/board/write";  //write.html
 	}
 	
 	//글쓰기 처리
 	@PostMapping("/write")
-	public String write(@ModelAttribute BoardDTO boardDTO) {
+	public String write(@Valid BoardDTO boardDTO, 
+			BindingResult bindingResult) {
+		if(bindingResult.hasErrors()) { //에러가 있으면 글쓰기 폼으로 이동
+			log.info("has errors.....");
+			return "/board/write";
+		}
+		//글쓰기 처리
 		boardService.save(boardDTO);
 		return "redirect:/board/list";
 	}
 	
 	//글목록
 	@GetMapping("/list")
-	public String boardlist(Model model) {
+	public String getList(Model model) {
 		List<BoardDTO> boardDTOList = boardService.findAll();
 		model.addAttribute("boardList", boardDTOList);
-		return "board/list"; //list.html
+		return "/board/list";
 	}
 	
 	//글 상세보기
@@ -75,8 +85,7 @@ public class BoardController {
 	@PostMapping("/update")
 	public String update(@ModelAttribute BoardDTO boardDTO) {
 		//수정후에 글 상세보기로 이동
-		boardService.update(boardDTO);		
+		boardService.update(boardDTO);
 		return "redirect:/board/" + boardDTO.getId();
-		
 	}
 }
