@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.khit.board.dto.BoardDTO;
 import com.khit.board.service.BoardService;
@@ -39,14 +40,15 @@ public class BoardController {
 	//글쓰기 처리
 	@PostMapping("/write")
 	public String write(@Valid BoardDTO boardDTO, 
-			BindingResult bindingResult) {
+			BindingResult bindingResult,
+			MultipartFile boardFile) throws Exception {
 		if(bindingResult.hasErrors()) { //에러가 있으면 글쓰기 폼으로 이동
 			log.info("has errors.....");
 			return "/board/write";
 		}
 		//글쓰기 처리
-		boardService.save(boardDTO);
-		return "redirect:/board/list";
+		boardService.save(boardDTO, boardFile);
+		return "redirect:/board/pagelist";
 	}
 	
 	//글목록
@@ -62,15 +64,18 @@ public class BoardController {
     //  /board/pagelist
 	@GetMapping("/pagelist")
 	public String getPageList(
+			@RequestParam(value="type", required=false) String type,
 			@RequestParam(value="keyword", required=false) String keyword,
 			@PageableDefault(page = 1) Pageable pageable,
 			Model model) {
 		//검색어가 없으면 페이지 처리를 하고 \, 검색어가 있으면 검색어로 페이지 처리
-		Page<BoardDTO> bardDTOList = null;
+		Page<BoardDTO> boardDTOList = null;
 		if(keyword == null) {
 			boardDTOList = boardService.findListAll(pageable);			
-		}else {
-			boardDTOList = boardService.findByBoardTitleContaining(keyword, pageable);			
+		}else if(type !=null && type.equals("title")) {
+			boardDTOList = boardService.findByBoardTitleContaining(keyword, pageable);	
+		}else if(type !=null && type.equals("content")){
+			boardDTOList = boardService.findByBoardContentContaining(keyword, pageable);			
 		}
 		
 		//하단의 페이지 블럭 만들기
@@ -82,6 +87,8 @@ public class BoardController {
 				boardDTOList.getTotalPages() : startPage+blockLimit-1;
 		
 		model.addAttribute("boardList", boardDTOList);
+		model.addAttribute("type", type);	//검색어 유형보내기
+		model.addAttribute("kw", keyword);	//검색어 보내기
 		model.addAttribute("startPage", startPage);
 		model.addAttribute("endPage", endPage);
 		return "/board/pagelist";

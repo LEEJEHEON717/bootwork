@@ -17,6 +17,7 @@ a{text-decoration: none;}
 /* tbl_list 스타일 */
 .searchform{width: 700px; margin: 0 auto; text-align: right;
 	margin-bottom: 12px;}
+.sel_type{padding: 4px;}
 .tbl_list{width: 700px; margin: 0 auto;
    border-collapse: collapse;}
 .tbl_list th, td{border: 1px solid #ccc; padding: 8px;
