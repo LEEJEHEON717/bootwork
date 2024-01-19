@@ -11,16 +11,18 @@ import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 
-@Builder
 @NoArgsConstructor
 @AllArgsConstructor
+@Builder
 @Data
 @Table(name = "tbl_board")
-@Entity
+@Entity   
 public class Board extends BaseEntity{ //테이블이 생성되는 역할을 하는 클래스
-	@Id	//pk(프라이머리키)
+	@Id   //pk
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 	
@@ -47,6 +49,7 @@ public class Board extends BaseEntity{ //테이블이 생성되는 역할을 하
 		return board;
 	}
 	
+	//dto를 entity로 수정하여 변환하는 정적 메서드
 	public static Board toUpdateEntity(BoardDTO boardDTO) {
 		Board board = Board.builder()
 				.id(boardDTO.getId())

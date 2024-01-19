@@ -1,5 +1,6 @@
 package com.khit.study.service;
 
+import java.sql.Timestamp;
 import java.util.List;
 
 import org.springframework.data.domain.Sort;
@@ -11,7 +12,6 @@ import com.khit.study.repository.BoardRepository;
 import lombok.AllArgsConstructor;
 
 @AllArgsConstructor
-
 @Service
 public class BoardService {
 	
@@ -28,7 +28,7 @@ public class BoardService {
 	}
 
 	public Board findById(int id) {
-		//1건 검색 - findById() - get()
+		//1건 검색 - findById().get()
 		return boardRepository.findById(id).get();
 	}
 
@@ -38,11 +38,8 @@ public class BoardService {
 	}
 
 	public void update(Board board) {
+		//수정일 직접 생성해줌
+		board.setCreatedDate(new Timestamp(System.currentTimeMillis()));
 		boardRepository.save(board);
-		
 	}
-
-
-
-
 }

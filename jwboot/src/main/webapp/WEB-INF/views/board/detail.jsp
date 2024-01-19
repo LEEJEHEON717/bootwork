@@ -1,7 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
+    pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -15,32 +13,40 @@
 		<table class="tbl_write">
 			<tbody>
 				<tr>
-					<td><input type="text" name="id" value="${board.id}" readonly>
+					<td>
+						<input type="text" name="id"
+							value="${board.id}" required>
 					</td>
 				</tr>
 				<tr>
-					<td><input type="text" name="title" value="${board.title}"
-						readonly></td>
+					<td>
+						<input type="text" name="title"
+							value="${board.title}" required>
+					</td>
 				</tr>
 				<tr>
-					<td><input type="text" name="writer" value="${board.writer}"
-						readonly></td>
+					<td>
+						<input type="text" name="writer"
+							value="${board.writer}" required>
+					</td>
 				</tr>
 				<tr>
-					<td><textarea rows="5" cols="60" name="content" required>${board.content}</textarea>
+					<td>
+						<textarea rows="5" cols="60" 
+							name="content" required>${board.content}</textarea>
 					</td>
 				</tr>
 				<tr>
 					<td>
 						<a href="/board/">
-								<button type="button">목록</button>
-						</a> 
+							<button type="button">목록</button>
+						</a>
 						<a href="/board/update?id=${board.id}">
-								<button type="button">수정</button>
-						</a> 
-						<a href="/board/delete?id=${board.id}"
-							onclick="return confirm('해당 글을 삭제하시겠습니까')">
-								<button type="button">삭제</button>
+							<button type="button">수정</button>
+						</a>
+						<a href="/board/delete?id=${board.id}" 
+						   onclick="return confirm('해당 글을 삭제하시겠습니까?')">
+							<button type="button">삭제</button>
 						</a>
 					</td>
 				</tr>

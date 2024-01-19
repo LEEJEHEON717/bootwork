@@ -36,18 +36,18 @@ public class BoardController {
 		return "redirect:/board/";
 	}
 	
-	//글목록
+	//글목록 
 	@GetMapping("/board/")
 	public String getBoardList(Model model) {
 		List<Board> boardList = boardService.findAll();
 		model.addAttribute("boardList", boardList);
-		return "/board/list"; //list.jsp
+		return "/board/list";  //list.jsp
 	}
 	
 	//글 상세보기
 	// /board?id=1
 	@GetMapping("/board")
-	public String getBoard(@RequestParam("id") int id,
+	public String getBoard(@RequestParam("id") int id, 
 			Model model) {
 		Board board = boardService.findById(id);
 		model.addAttribute("board", board);
@@ -63,20 +63,21 @@ public class BoardController {
 	
 	//글수정 페이지
 	@GetMapping("/board/update")
-	public String updateForm(@RequestParam("id") int id
-			, Model model) {
+	public String updateForm(@RequestParam("id") int id,
+			Model model) {
 		//수정할 게시글 가져오기
 		Board board = boardService.findById(id);
 		//페이지에 모델 전송
 		model.addAttribute("board", board);
-		return "board/update";  //update.jsp
+		return "/board/update";  //update.jsp
 	}
 	
-	//글 수정 처리
+	//글 수정처리
 	@PostMapping("/board/update")
 	public String updateBoard(@ModelAttribute Board board) {
-		//수정후 글 상세보기로 이동		
+		//수정후 글 상세보기로 이동
 		boardService.update(board);
-		return "/board?id=" + board.getId();
+		return "redirect:/board?id=" + board.getId();
 	}
+	
 }

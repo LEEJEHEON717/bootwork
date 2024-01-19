@@ -13,7 +13,7 @@ import lombok.NoArgsConstructor;
 
 @Builder
 @NoArgsConstructor
-@AllArgsConstructor
+@AllArgsConstructor  //모든 필드를 매개변수로 갖는 생성자
 @Data
 public class BoardDTO {
 	private Long id;
@@ -29,7 +29,7 @@ public class BoardDTO {
 	@NotEmpty(message = "내용은 필수 항목입니다.")
 	@Size(max = 2000)
 	private String boardContent;
-	
+
 	private Integer boardHits;
 	
 	private LocalDateTime createdDate;
@@ -49,4 +49,11 @@ public class BoardDTO {
 				.build();
 		return boardDTO;
 	}
+
+
+
+
+	
+
+	
 }

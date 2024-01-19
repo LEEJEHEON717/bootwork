@@ -1,7 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>	
+    pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -16,20 +14,28 @@
 			<table class="tbl_write">
 				<tbody>
 					<tr>
-						<td><input type="text" name="title" placeholder="글 제목"
-							required></td>
-					</tr>
-					<tr>
-						<td><input type="text" name="writer" placeholder="작성자"
-							required></td>
-					</tr>
-					<tr>
-						<td><textarea rows="5" cols="60" name="content" required></textarea>
+						<td>
+							<input type="text" name="title"
+								placeholder="글 제목" required>
 						</td>
 					</tr>
 					<tr>
-						<td><input type="submit" value="등록"> <input
-							type="reset" value="취소"></td>
+						<td>
+							<input type="text" name="writer"
+								placeholder="작성자" required>
+						</td>
+					</tr>
+					<tr>
+						<td>
+							<textarea rows="5" cols="60"
+								name="content" required></textarea>
+						</td>
+					</tr>
+					<tr>
+						<td>
+							<input type="submit" value="등록">
+							<input type="reset" value="취소">
+						</td>
 					</tr>
 				</tbody>
 			</table>

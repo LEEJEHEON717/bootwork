@@ -1,7 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
+    pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -12,32 +10,31 @@
 <body>
 	<div class="wrap">
 		<h2>글 수정</h2>
-		<form action="/board/update" method="post" name="updateform">
+		<form action="/board/update" method="post">
 			<table class="tbl_write">
 				<tbody>
 					<tr>
 						<td>
-							<input type="text" name="id" 
+							<input type="text" name="id"
 								value="${board.id}" readonly>
 						</td>
 					</tr>
 					<tr>
 						<td>
-							<input type="text" name="title" 
-								value="${board.title}" readonly>
+							<input type="text" name="title"
+								value="${board.title}">
 						</td>
 					</tr>
 					<tr>
 						<td>
-							<input type="text" name="writer" 
+							<input type="text" name="writer"
 								value="${board.writer}" readonly>
 						</td>
 					</tr>
 					<tr>
 						<td>
 							<textarea rows="5" cols="60" 
-								name="content" required>${board.content}
-							</textarea>
+								name="content">${board.content}</textarea>
 						</td>
 					</tr>
 					<tr>

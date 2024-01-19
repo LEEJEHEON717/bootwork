@@ -34,12 +34,7 @@ public class MemberDTO {
 				.memberName(member.getMemberName())
 				.memberAge(member.getMemberAge())
 				.build();
-		
+				
 		return memberDTO;
-	}
-
-	private static MemberDTOBuilder memberEmail(String memberEmail2) {
-		// TODO Auto-generated method stub
-		return null;
 	}
 }

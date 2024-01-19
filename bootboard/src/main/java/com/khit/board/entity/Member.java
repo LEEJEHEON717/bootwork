@@ -20,17 +20,17 @@ import lombok.NoArgsConstructor;
 @Table(name = "tbl_member")
 @Entity
 public class Member {
-	@Id		//PK(기본키)
+	@Id  //PK(기본키)
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 	
-	@Column(unique = true) //유일성 가짐, 중복검사
+	@Column(unique = true)  //유일성 가짐, 중복검사
 	private String memberEmail;
 	
-	@Column(nullable = false) //필수 입력, not null
+	@Column(nullable = false)  //필수 입력, not null
 	private String memberPassword;
 	
-	@Column(length = 30, nullable = false) //길이 30byte
+	@Column(length = 30, nullable = false)  //길이 30byte
 	private String memberName;
 	
 	@Column
@@ -43,7 +43,7 @@ public class Member {
 		member.setMemberPassword(memberDTO.getMemberPassword());
 		member.setMemberName(memberDTO.getMemberName());
 		member.setMemberAge(memberDTO.getMemberAge());*/
-			
+		
 		//builder()로 생성
 		Member member = Member.builder()
 				.memberEmail(memberDTO.getMemberEmail())
@@ -55,7 +55,7 @@ public class Member {
 		return member;
 	}
 	
-	//수정을 위한 
+	//수정을 위한 정적 메서드(id 포함)
 	public static Member toUpdateEntity(MemberDTO memberDTO) {
 		Member member = new Member();
 		member.setId(memberDTO.getId());
@@ -66,4 +66,6 @@ public class Member {
 		
 		return member;
 	}
+	
+	
 }
