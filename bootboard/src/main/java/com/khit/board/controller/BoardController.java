@@ -64,18 +64,18 @@ public class BoardController {
     //  /board/pagelist
 	@GetMapping("/pagelist")
 	public String getPageList(
-			@RequestParam(value="type", required=false) String type,
-			@RequestParam(value="keyword", required=false) String keyword,
+			@RequestParam(value="type", required = false) String type,
+			@RequestParam(value="keyword", required = false) String keyword,
 			@PageableDefault(page = 1) Pageable pageable,
 			Model model) {
-		//검색어가 없으면 페이지 처리를 하고 \, 검색어가 있으면 검색어로 페이지 처리
+		//검색어가 없으면 페이지 처리를 하고, 검색어가 있으면 검색어로 페이지 처리
 		Page<BoardDTO> boardDTOList = null;
 		if(keyword == null) {
-			boardDTOList = boardService.findListAll(pageable);			
-		}else if(type !=null && type.equals("title")) {
-			boardDTOList = boardService.findByBoardTitleContaining(keyword, pageable);	
-		}else if(type !=null && type.equals("content")){
-			boardDTOList = boardService.findByBoardContentContaining(keyword, pageable);			
+			boardDTOList = boardService.findListAll(pageable);
+		}else if(type != null && type.equals("title")) {
+			boardDTOList = boardService.findByBoardTitleContaining(keyword, pageable);
+		}else if(type != null && type.equals("content")){
+			boardDTOList = boardService.findByBoardContentContaining(keyword, pageable);
 		}
 		
 		//하단의 페이지 블럭 만들기
@@ -87,8 +87,8 @@ public class BoardController {
 				boardDTOList.getTotalPages() : startPage+blockLimit-1;
 		
 		model.addAttribute("boardList", boardDTOList);
-		model.addAttribute("type", type);	//검색어 유형보내기
-		model.addAttribute("kw", keyword);	//검색어 보내기
+		model.addAttribute("type", type);    //검색 유형 보내기
+		model.addAttribute("kw", keyword);   //검색어 보내기
 		model.addAttribute("startPage", startPage);
 		model.addAttribute("endPage", endPage);
 		return "/board/pagelist";
@@ -96,15 +96,16 @@ public class BoardController {
 	
 	//글 상세보기
 	@GetMapping("/{id}")
-	public String getBoard(@PageableDefault(page = 1) Pageable pageable, 
-			@PathVariable Long id, Model model) {
+	public String getBoard(
+			@PageableDefault(page = 1) Pageable pageable,
+			@PathVariable Long id,
+			Model model) {
 		//조회수
 		boardService.updateHits(id);
-		//페이지
-		model.addAttribute("page", pageable.getPageNumber());
 		//글 상세보기
 		BoardDTO boardDTO = boardService.findById(id);
 		model.addAttribute("board", boardDTO);
+		model.addAttribute("page", pageable.getPageNumber());
 		return "/board/detail";
 	}
 	
@@ -127,9 +128,10 @@ public class BoardController {
 	
 	//글 수정 처리
 	@PostMapping("/update")
-	public String update(@ModelAttribute BoardDTO boardDTO) {
+	public String update(@ModelAttribute BoardDTO boardDTO,
+			MultipartFile boardFile) throws Exception {
 		//수정후에 글 상세보기로 이동
-		boardService.update(boardDTO);
+		boardService.update(boardDTO, boardFile);
 		return "redirect:/board/" + boardDTO.getId();
 	}
 }
