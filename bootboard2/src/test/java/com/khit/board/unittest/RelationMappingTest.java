@@ -25,7 +25,7 @@ public class RelationMappingTest {
 	@Autowired
 	private BoardRepository boardRepository;
 
-	/*@Test
+	@Test
 	public void testInsertData() {
 		Member member1 = new Member();
 		member1.setMemberId("member1");
@@ -85,51 +85,51 @@ public class RelationMappingTest {
 		}
 
 	// 게시글 상세 조회
-	@Test
-	public void testSelectOne() {
-		// 4번 게시글 조회 - findById(4)
-		Board board = boardRepository.findById(4).get();
-		log.info(board.getId() + "번 게시글 정보");
-		log.info("제목: " + board.getTitle());
-		log.info("내용: " + board.getContent());
-		log.info("작성자: " + board.getMember().getName());
-		log.info("권한: " + board.getMember().getRole());
-		log.info("게시일: " + board.getCreatedDate());
-	}*/
-
-	// 특정 회원이 게시한 글 조회
-	@Test
-	public void testSelect() {
-		// 허니비가 쓴 게시글 조회
-		Optional<Member> member = memberRepository.findByMemberId("허니비");
-		
-		log.info(member.get().getName() + "가 작성한 게시글 목록");
-		
-		List<Board> boardList = member.get().getBoardList();
-		for (Board board : boardList)
-			log.info(board.toString());
-		
-	}
-
-	// 특정 회원 삭제
-	@Test
-	public void testDelete() {
-		memberRepository.deleteById(2);
-		
-		// 회원 목록
-		List<Member> memberList = memberRepository.findAll();
-		
-		for (Member member : memberList) {
-			log.info(member.toString());
-		}
-
-		// 게시글 목록
-		List<Board> boardList = boardRepository.findAll();
-		
-		for (Board board : boardList) {
-			log.info(board.toString());
-		}
-		
-	}
+//	@Test
+//	public void testSelectOne() {
+//		// 4번 게시글 조회 - findById(4)
+//		Board board = boardRepository.findById(4).get();
+//		log.info(board.getId() + "번 게시글 정보");
+//		log.info("제목: " + board.getTitle());
+//		log.info("내용: " + board.getContent());
+//		log.info("작성자: " + board.getMember().getName());
+//		log.info("권한: " + board.getMember().getRole());
+//		log.info("게시일: " + board.getCreatedDate());
+//	}
+//
+//	// 특정 회원이 게시한 글 조회
+//	@Test
+//	public void testSelect() {
+//		// 허니비가 쓴 게시글 조회
+//		Optional<Member> member = memberRepository.findByMemberId("허니비");
+//		
+//		log.info(member.get().getName() + "가 작성한 게시글 목록");
+//		
+//		List<Board> boardList = member.get().getBoardList();
+//		for (Board board : boardList)
+//			log.info(board.toString());
+//		
+//	}
+//
+//	// 특정 회원 삭제
+//	@Test
+//	public void testDelete() {
+//		memberRepository.deleteById(2);
+//		
+//		// 회원 목록
+//		List<Member> memberList = memberRepository.findAll();
+//		
+//		for (Member member : memberList) {
+//			log.info(member.toString());
+//		}
+//
+//		// 게시글 목록
+//		List<Board> boardList = boardRepository.findAll();
+//		
+//		for (Board board : boardList) {
+//			log.info(board.toString());
+//		}
+//		
+//	}
 	
 }
