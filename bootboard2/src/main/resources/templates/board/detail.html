@@ -1,5 +1,6 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org"
+xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity6">
 <head>
 <meta charset="UTF-8">
 <title>Index...</title>
@@ -12,27 +13,37 @@
        		<tbody>
        		  <tr>
        		  	<td>
-       		  		<input type="text" name="Title"
-       		  			th:value="${board.Title}" readonly>
+       		  		<input type="text" name="title"
+       		  			th:value="${board.title}" readonly>
        		  	</td>
        		  </tr>
        		  <tr>
        		  	<td>
-       		  		<input type="text"
+       		  		<input type="text" 
        		  			th:value="${board.member.name}" readonly>
        		  	</td>
        		  </tr>
        		  <tr>
        		  	<td>
-       		  		<textarea rows="5" cols="50" name="Content"
-       		  			th:text="${board.Content}" readonly></textarea>
+       		  		<textarea rows="5" cols="50" name="content"
+       		  			th:text="${board.content}" readonly></textarea>
        		  	</td>
        		  </tr>
        		  <tr>
        		  	<td>
-       		  		 <a th:href="@{/board/list}">
-       		  			<input type="button" value="목록">
-       		  		</a>
+	       		  	<th:block sec:authorize="isAuthenticated()"
+	       		  			th:if="${#authentication.getPrincipal.getUsername()}==
+	       		  					${board.member.memberId}">
+	     		  		<a th:href="@{/board/update/${board.id}}">
+	     		  			<button type="button">수정</button>
+	     		  		</a>
+	     		  		<a th:href="@{/board/delete/${board.id}}">
+	     		  			<button type="button">삭제</button>
+	     		  		</a>
+	     		  		<a th:href="@{/board/list}">
+	     		  			<button type="button">목록</button>
+	     		  		</a>
+	     		  	<th:block>	
        		  	</td>
        		  </tr>
        		</tbody>

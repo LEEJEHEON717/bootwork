@@ -8,8 +8,9 @@
 <body>
     <div id="container">
         <h2>글쓰기</h2>
-        <form th:action="@{/board/write}" method="post"
-        		enctype="multipart/form-data" th:object="${boardDTO}" class="writeform">
+        <form th:action="@{/board/write}" method="post" 
+              enctype="multipart/form-data"
+              th:object="${boardDTO}" class="writeform">
             <div th:if="${#fields.hasAnyErrors()}" >
             	<div th:each="err: ${#fields.allErrors()}" 
             			th:text="${err}" class="alert-danger"></div>
@@ -42,8 +43,8 @@
         		  </tr>
         		  <tr>
         		  	<td>
-        		  		<input type="submit" value="등록">
-        		  		<input type="reset" value="취소">
+        		  		<button type="submit">등록</button>
+        		  		<button type="reset">취소</button>
         		  	</td>
         		  </tr>
         		</tbody>

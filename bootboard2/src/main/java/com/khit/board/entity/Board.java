@@ -37,12 +37,12 @@ public class Board {
 	private Timestamp createdDate;
 	
 	//Board 엔티티와 연관관계 매핑
-	//다대일 매핑(fetch는 조회할때 EAGER-전체조회를 함, LAZY-특정한 조회만 됨)
+	//다대일 매핑
+	//fetch는 조회할때 EAGER-전체 조회를 함, LAZY-특정한 조회만 됨)
 	//JoinColumn - 외래키 설정
 	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "member_id")
 	private Member member;
-	
 	
 	
 }

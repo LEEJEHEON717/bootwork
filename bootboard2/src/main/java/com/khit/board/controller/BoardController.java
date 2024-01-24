@@ -2,12 +2,16 @@ package com.khit.board.controller;
 
 import java.util.List;
 
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import com.khit.board.config.SecurityUser;
 import com.khit.board.entity.Board;
 import com.khit.board.service.BoardService;
 
@@ -25,7 +29,7 @@ public class BoardController {
 	public String getList(Model model) {
 		List<Board> boardList = boardService.findAll();
 		model.addAttribute("boardList", boardList);
-		return "/board/list"; //list.html
+		return "/board/list";  //list.html
 	}
 	
 	//게시글 상세 보기
@@ -34,7 +38,22 @@ public class BoardController {
 			Model model) {
 		Board board = boardService.findById(id);
 		model.addAttribute("board", board);
-		return "/board/detail"; //detail.html
+		return "/board/detail";  //detail.html
 	}
 	
+	//글쓰기 페이지
+	@GetMapping("/write")
+	public String writeForm() {
+		return "/board/write";
+	}
+	
+	//글쓰기 처리
+	//title, member, content를 저장
+	@PostMapping("/write")
+	public String write(@ModelAttribute Board board,
+			@AuthenticationPrincipal SecurityUser principal) {
+		board.setMember(principal.getMember());
+		boardService.save(board);
+		return "redirect:/board/list";
+	}
 }
