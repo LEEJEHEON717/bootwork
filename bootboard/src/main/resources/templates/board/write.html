@@ -8,8 +8,9 @@
 <body>
     <div id="container">
         <h2>글쓰기</h2>
-        <form th:action="@{/board/write}" method="post"
-        		enctype="multipart/form-data" th:object="${boardDTO}" class="writeform">
+        <form th:action="@{/board/write}" method="post" 
+              enctype="multipart/form-data"
+              th:object="${boardDTO}" class="writeform">
             <div th:if="${#fields.hasAnyErrors()}" >
             	<div th:each="err: ${#fields.allErrors()}" 
             			th:text="${err}" class="alert-danger"></div>

@@ -93,7 +93,7 @@ public class RelationMappingTest {
 		log.info("내용: " + board.getContent());
 		log.info("작성자: " + board.getMember().getName());
 		log.info("작성자 권한: " + board.getMember().getRole());
-	}*/
+	}
 	
 	//특정 회원이 게시한 글 조회
 	@Test
@@ -124,7 +124,7 @@ public class RelationMappingTest {
 		List<Board> boardList = boardRepository.findAll();
 		
 		boardList.forEach(board -> log.info(board.toString()));
-	}
+	}*/
 	
 }
 

@@ -1,23 +1,64 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
+<script src="https://code.jquery.com/jquery-3.7.1.js" integrity="sha256-eKhayi8LEQwp4NKxN+CfCh+3qOVUtJn3QNZ0TciWLP4=" crossorigin="anonymous"></script>
 <head>
 <meta charset="UTF-8">
 <title>Index...</title>
 <link rel="stylesheet" th:href="@{/css/style.css}">
 </head>
 <body>
+	<!-- footer.html 연결  -->
+	<div th:replace="~{/layout/header::header-fragment}"></div>
 	<div id="container">
-		<h2>MyHome에 오셨습니다...</h2>
-		<div class="main-img">
-	    	<img th:src="@{/images/1.jpg}" alt="theater">
-	    </div>
-	    <div class="menu">
-	    	<a th:href="@{/main}">메인페이지</a>&nbsp; &nbsp;
-	    	<a th:href="@{/member/join}">회원가입</a>&nbsp; &nbsp;
-	    	<a th:href="@{/member/list}">회원목록</a>&nbsp; &nbsp;
-	    	<a th:href="@{/board/list}">글목록</a>&nbsp; &nbsp;
-	    	<a th:href="@{/auth/main}">인증메인</a>&nbsp; &nbsp;
-	    </div>
+		<section id="main">
+			<h1>
+				WELCOME<br>HONEYBEE KICHEN
+			</h1>
+			<div class="main_img">
+				<img th:src="@{/images/1.jpg}" alt="theater">
+			</div>
+
+			<div class="weather">
+				<h2>오늘의 날씨</h2>
+				<h3 class="result">]
+					<!-- 20240125(날짜), 0600(발표시각), -9.1(온도) -->
+				</h3>
+			</div>
+		</section>
 	</div>
+	<!-- footer.html 연결  -->
+	<div th:replace="~{/layout/footer::footer-fragment}"></div>
+	<script>
+	//날짜를 변수화
+    const date = new Date();
+    console.log(date);
+    let year = date.getFullYear();          //2024년
+    let month = '0' + date.getMonth() + 1;  //0월 부터 나오니 +1 해주어 1월부터 나오게 해준다
+    month = month.substring(1)              //subString(인덱스) 인덱스부터 끝까지 추출
+    let day = '0' + date.getDate();         //25일
+    day = day.substring(1);
+
+    let today = year + month + day;
+	
+    $.ajax({
+      type: "GET",
+      url:  "https://apis.data.go.kr/1360000/VilageFcstInfoService_2.0/getUltraSrtNcst?serviceKey=e%2FdwMCtondcOWd9nggOD9uG06gt3c6p5aqokquWC9vMeCnmr%2FcjE10ZMQEx7iTQ43jsL1xsQzlKzQ8BsJBls8g%3D%3D&pageNo=1&numOfRows=1000&dataType=JSON&base_date=" + today +"&base_time=0600&nx=55&ny=127",
+      success: function(data){
+        console.log(data);
+        console.log(data.response.body.items.item[3].obsrValue);
+        let item = data.response.body.items.item[3];
+        let content = "날짜: " + item.baseDate +
+          ", 발표시각: " + item.baseTime +
+          ", 기온: " + item.obsrValue;
+          
+        $('.result').text(content);
+        
+      },
+      error: function(error){
+        console.log(error);
+      }
+
+    });
+  </script>
 </body>
 </html>

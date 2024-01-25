@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org"
-	  xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity6">
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity6">
 <head>
 <meta charset="UTF-8">
 <title>Index...</title>
@@ -8,9 +8,10 @@
 </head>
 <body>
     <div id="container">
-	    <div sec:authorize="isAuthenticated()" class="auth">
-	    	<h3 sec:authentication="principal.member.name"></h3>
-	    </div>
+        <div sec:authorize="isAuthenticated()" class="auth">
+            <p th:text="${#authentication.getPrincipal()}"></p>
+        	<h3 sec:authentication="principal.member.name"></h3>
+        </div>
 		<div class="menu">
 		   <a th:href="@{/member/logout}">                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                 
 		   	  <button type="button">로그아웃</button>

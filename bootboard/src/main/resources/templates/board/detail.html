@@ -26,7 +26,7 @@
        		  	<td>
        		  		<textarea rows="5" cols="50" name="boardContent"
        		  			th:text="${board.boardContent}" readonly></textarea>
-       		  		<img th:src="@{${board.filepath}}">
+       		  	    <img th:src="@{${board.filepath}}" alt="">
        		  	</td>
        		  </tr>
        		  <tr>
@@ -34,11 +34,6 @@
        		  		<span th:text="'조회수: ' + ${board.boardHits}"></span>
        		  	</td>
        		  </tr>
-			<!--<tr>
-       		  	<td>
-       		  		<img th:src="@{$/upload/cat.jpg}">
-       		  	</td>
-       		  </tr> -->
        		  <tr>
        		  	<td>
        		  	    <span th:if="${board.updatedDate} != null" 

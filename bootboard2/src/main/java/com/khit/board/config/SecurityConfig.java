@@ -8,6 +8,7 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 
 @Configuration
 @EnableWebSecurity
@@ -19,22 +20,28 @@ public class SecurityConfig {
 	//@Bean는 프로젝트에서 관리가 안되는 클래스를 빈으로 사용할때 필요함
 	@Bean
 	SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
+		//인증 및 권한 서비스 실행
+		http.userDetailsService(customService);
+		
 		//인증 설정 -> 권한 설정
 		// 로그인이 필요없음: /", "/css/**", "/images/**", "/auth/main", "/member/**"
 		// 로그인이 필요: 그외의 경로
-		http.userDetailsService(customService);
-		
 		http
 		  .authorizeHttpRequests(authorize -> authorize
-				  .requestMatchers("/", "/css/**", "/images/**", 
-						  "/auth/main", "/member/**", "/board/list", "/board/").permitAll()
+				  .requestMatchers("/", "/css/**", "/images/**", "/js/**").permitAll()
 				  .requestMatchers("/board/write").authenticated()
+				  .requestMatchers("/member/**", "/board/**").permitAll()
 				  .anyRequest().authenticated()
 				  )
 		          .formLogin(form -> form
-		        		  .loginPage("/member/login")
-		        		  .defaultSuccessUrl("/")
+		        		.loginPage("/member/login")
+		          	    .defaultSuccessUrl("/")
 		          );
+		          
+		     http.logout().logoutUrl("/member/logout")
+		            .logoutRequestMatcher(new AntPathRequestMatcher("/member/logout"))
+		            .invalidateHttpSession(true) //세션 무효화
+		            .logoutSuccessUrl("/");
 		
 		return http.build();
 	}

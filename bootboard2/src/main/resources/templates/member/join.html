@@ -7,13 +7,15 @@
 <script src="https://code.jquery.com/jquery-3.7.1.js" integrity="sha256-eKhayi8LEQwp4NKxN+CfCh+3qOVUtJn3QNZ0TciWLP4=" crossorigin="anonymous"></script>
 </head>
 <body>
+    <div th:replace="~{/layout/header::header-fragment}"></div>
 	<div id="container">
+	  <section id="join">
 		<h2>회원 가입</h2>
 		<form th:action="@{/member/join}" method="post" class="joinform">
 		  <fieldset>
 		  	<ul>
 		  		<li>
-		  			<label for="memberId">이메일</label>
+		  			<label for="memberId">아이디</label>
 		  			<input type="text" name="memberId" id="memberId"
 		  			       onblur="checkMemberId()">
 		  		</li>
@@ -35,8 +37,9 @@
 		  	</ul>
 		  </fieldset>
 		</form>
+	  </section>
 	</div>
-	
+    <div th:replace="~{/layout/footer::footer-fragment}"></div>
 <script>
 	const checkEmail = () => {
 		//alert("test...");
