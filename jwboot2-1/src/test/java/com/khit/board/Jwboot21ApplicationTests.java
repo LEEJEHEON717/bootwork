@@ -1,10 +1,10 @@
-package com.khit.test;
+package com.khit.board;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
 @SpringBootTest
-class ApplicationTests {
+class Jwboot21ApplicationTests {
 
 	@Test
 	void contextLoads() {

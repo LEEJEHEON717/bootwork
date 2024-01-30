@@ -5,5 +5,5 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import com.khit.board.entity.User;
 
 public interface UserRepository extends JpaRepository<User, Integer>{
-	//save(), findAll(), findById(), deleteById()
+   //save(), findAll(), findById(), deleteById()
 }

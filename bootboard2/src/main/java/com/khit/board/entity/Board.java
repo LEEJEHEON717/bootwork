@@ -19,11 +19,15 @@ import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.OrderBy;
 import jakarta.persistence.Table;
+import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
 
+@AllArgsConstructor
+@NoArgsConstructor
 @Builder
 @ToString(exclude="member")
 @Setter
@@ -41,9 +45,6 @@ public class Board extends BaseEntity{
 	@Column(length = 2000, nullable = false)
 	private String content;
 	
-	@CreationTimestamp
-	private Timestamp createdDate;
-	
 	//Board 엔티티와 연관관계 매핑
 	//다대일 매핑
 	//fetch는 조회할때 EAGER-전체 조회를 함, LAZY-특정한 조회만 됨)
@@ -57,7 +58,7 @@ public class Board extends BaseEntity{
 	@OrderBy("id desc")
 	private List<Reply> replyList;
 	
-	//dto -entity(글쓰기)
+	//dto - entity(글쓰기)
 	public static Board toSaveEntity(BoardDTO boardDTO) {
 		Board board = Board.builder()
 				.title(boardDTO.getTitle())
@@ -67,7 +68,7 @@ public class Board extends BaseEntity{
 		return board;
 	}
 	
-	//dto -entity(글수정 - 이미 글번호가 존재함으로 꼭 명시함)
+	//dto - entity(글수정 - 이미 글번호가 존재함으로 꼭 명시함)
 	public static Board toUpdateEntity(BoardDTO boardDTO) {
 		Board board = Board.builder()
 				.id(boardDTO.getId())
@@ -77,4 +78,5 @@ public class Board extends BaseEntity{
 				.build();
 		return board;
 	}
+	
 }

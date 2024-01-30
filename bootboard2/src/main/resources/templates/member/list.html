@@ -28,7 +28,7 @@
 		  	    <td th:text="${member.memberId}"></td>
 		  	    <td th:text="${member.name}"></td> 
 		  	    <td th:text="${member.role}"></td>
-		  	    <td th:text="${dates.format(member.createdDate, 'yyyy-MM-dd HH:mm')}"></td>
+		  	    <td th:text="${#dates.format(member.createdDate, 'yyyy-MM-dd HH:mm')}"></td>
 		  	    <td><a th:href="@{|/member/${member.id}|}">조회</a></td>
 		  	    <!-- 버티컬바(|)는 ${member.id}를 숫자로 유지시켜줌 -->
 		  	    <td><a th:href="@{|/member/delete/${member.id}|}"

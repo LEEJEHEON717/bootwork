@@ -13,7 +13,7 @@ import lombok.Data;
 
 @Data
 @Table(name = "t_reply")
-@Entity	
+@Entity
 public class Reply extends BaseEntity{
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -22,7 +22,7 @@ public class Reply extends BaseEntity{
 	@Column(length = 200, nullable = false)
 	private String content;
 	
-	//회원 1명이 여러 개의 댓글을 쓸 수 있음
+	//회원 1명이 여러 개의 댓글을 쓸수 있음
 	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn
 	private Member member;
@@ -31,4 +31,6 @@ public class Reply extends BaseEntity{
 	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn
 	private Board board;
+	
+	
 }

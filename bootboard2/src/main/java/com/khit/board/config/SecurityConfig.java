@@ -35,15 +35,15 @@ public class SecurityConfig {
 				  .anyRequest().authenticated()
 				  )
 		          .formLogin(form -> form
-		        		.loginPage("/member/login")
+		        		.loginPage("/login")
 		          	    .defaultSuccessUrl("/")
 		          );
 		
 		     //접근 권한 페이지
 		     http.exceptionHandling().accessDeniedPage("/auth/accessDenied");
 		          
-		     http.logout().logoutUrl("/member/logout")
-		            .logoutRequestMatcher(new AntPathRequestMatcher("/member/logout"))
+		     http.logout().logoutUrl("/logout")
+		            .logoutRequestMatcher(new AntPathRequestMatcher("/logout"))
 		            .invalidateHttpSession(true) //세션 무효화
 		            .logoutSuccessUrl("/");
 		

@@ -26,9 +26,9 @@ public class MemberController {
 	private final MemberService memberService;
 	
     //로그인 페이지 요청 :  /member/login
-	@GetMapping("/member/login")
+	@GetMapping("/login")
 	public String loginForm() {
-		return "/member/login";  //login.html
+		return "/login";  //login.html
 	}
 	
 	//로그인 처리
@@ -65,14 +65,15 @@ public class MemberController {
 	
 	//회원 가입 처리
 	//@Valid : 필드의 유효성 검사
-	//BindingResult : 에러 처리 클래스
+	//BindingResult: 에러 처리 클래스
 	@PostMapping("/member/join")
 	public String join(@Valid MemberDTO memberDTO,
 			BindingResult bindingResult) {
 		if(bindingResult.hasErrors()) {
 			//에러가 있으면 회원 가입 페이지에 머무름
-			return"/member/join";
+			return "/member/join";
 		}
+		
 		memberService.save(memberDTO);
 		return "redirect:/member/login";
 	}
@@ -120,3 +121,9 @@ public class MemberController {
 	}
 	
 }
+
+
+
+
+
+

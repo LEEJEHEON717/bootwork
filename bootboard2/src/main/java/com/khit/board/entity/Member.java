@@ -62,7 +62,7 @@ public class Member extends BaseEntity{
 	private List<Reply> replyList;
 	
 	//dto(view에 온 입력값) -> entity(db에 저장)
-	//회원 가입(id(회원번호)가 자동생성되어 
+	//회원 가입(id(회원번호)가 자동생성되므로 명시하면 안됨)
 	public static Member toSaveEntity(MemberDTO memberDTO) {
 		Member member = Member.builder()
 				.memberId(memberDTO.getMemberId())
@@ -84,4 +84,5 @@ public class Member extends BaseEntity{
 				.build();
 		return member;
 	}
+	
 }

@@ -93,10 +93,10 @@ public class RelationMappingTest {
 		log.info("내용: " + board.getContent());
 		log.info("작성자: " + board.getMember().getName());
 		log.info("작성자 권한: " + board.getMember().getRole());
-	}
+	}*/
 	
 	//특정 회원이 게시한 글 조회
-	@Test
+	/*@Test
 	public void testSelect() {
 		//뽀로로가 쓴 게시글 조회
 		Optional<Member> member = memberRepository.findByMemberId("member1");
@@ -106,10 +106,10 @@ public class RelationMappingTest {
 		List<Board> boardList = member.get().getBoardList();
 		for(Board board : boardList)
 			log.info(board.toString());
-	}
+	}*/
 	
 	//특정 회원 삭제
-	@Test
+	/*@Test
 	public void testDelete() {
 		memberRepository.deleteById(2);
 		

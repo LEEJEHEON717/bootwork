@@ -27,7 +27,7 @@ public class UserService {
 
 	public User findById(Integer id) {
 		//검색된 회원이 없는 경우는 람다식으로 예외 처리
-		User findUser =
+		User findUser = 
 				userRepository.findById(id)
 				.orElseThrow(() -> {
 					return new CustomException(id + "번 회원이 없습니다.");
@@ -36,7 +36,7 @@ public class UserService {
 		/*User findUser = 
 				userRepository.findById(id)
 				.orElseThrow(new Supplier<CustomException>() {
-					
+
 					@Override
 					public CustomException get() {
 						return new CustomException(id + "번 회원이 없습니다.");
@@ -45,7 +45,8 @@ public class UserService {
 		
 		return findUser;
 	}
-
+    
+	//회원 수정
 	public void update(User user) {
 		userRepository.save(user);
 	}

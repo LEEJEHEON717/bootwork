@@ -26,7 +26,7 @@ public class BoardDTO {
 	
 	private Timestamp createdDate;
 	
-	private Timestamp updateDate;
+	private Timestamp updatedDate;
 	
 	//entity -> dto
 	public static BoardDTO toSaveDTO(Board board) {
@@ -37,10 +37,10 @@ public class BoardDTO {
 				.member(board.getMember())
 				.replyList(board.getReplyList())
 				.createdDate(board.getCreatedDate())
-				.updateDate(board.getUpdatedDate())
+				.updatedDate(board.getUpdatedDate())
 				.build();
 		
 		return boardDTO;
 	}
+	
 }
-
