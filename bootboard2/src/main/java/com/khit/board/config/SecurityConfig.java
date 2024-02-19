@@ -28,7 +28,7 @@ public class SecurityConfig {
 		// 로그인이 필요: 그외의 경로
 		http
 		  .authorizeHttpRequests(authorize -> authorize
-				  .requestMatchers("/", "/css/**", "/images/**", "/js/**").permitAll()
+				  .requestMatchers("/", "/login", "/css/**", "/images/**", "/js/**").permitAll()
 				  .requestMatchers("/board/write").authenticated()
 				  .requestMatchers("/member/list").hasAnyAuthority("ADMIN")
 				  .requestMatchers("/member/**", "/board/**", "/public-data/**").permitAll()
@@ -37,6 +37,7 @@ public class SecurityConfig {
 		          .formLogin(form -> form
 		        		.loginPage("/login")
 		          	    .defaultSuccessUrl("/")
+		          	    .permitAll()
 		          );
 		
 		     //접근 권한 페이지
